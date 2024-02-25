@@ -10,6 +10,10 @@ To start the code: npm run dev
 
 The primary styling framework throughout the project is Tailwind CSS and shadcn/ui.
 
+## State Management
+
+The application uses React-Redux and Redux Toolkit for robust and efficient state management.
+
 ## Functionalities
 
 ### 1. Search Functionality
