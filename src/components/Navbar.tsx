@@ -1,9 +1,6 @@
 import { MapPin } from "lucide-react";
-import React from "react";
 
-type Props = {};
-
-const Navbar = (props: Props) => {
+const Navbar = () => {
   return (
     <div className="p-2 flex items-center gap-1">
       <MapPin />
