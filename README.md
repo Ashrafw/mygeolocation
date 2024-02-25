@@ -2,6 +2,10 @@
 
 This application uses the powerful capabilities of the new Google Maps JavaScript API package **@vis.gl/react-google-maps** to provide an interactive and feature-rich mapping experience.
 
+### Visit the site: https://ashrafw.github.io/mygeolocation/
+
+### github repo: https://github.com/Ashrafw/mygeolocation
+
 ![alt text](image.png)
 
 To start the code: npm run dev
@@ -20,32 +24,6 @@ The application uses React-Redux and Redux Toolkit for robust and efficient stat
 
 - Explore and locate specific addresses, places, or points of interest on the map.
 - Utilises the advanced features of the Google Maps API to ensure accurate and comprehensive search results (Geocoding.tsx).
-
-```Javascript
- useEffect(() => {
-    if (!geocodingService || !address) return;
-    geocodingService.geocode({ address }, (results, status) => {
-      if (results && status === "OK") {
-        console.log("results", results);
-        setGeocodingResult(results[0]);
-        let lat = results[0].geometry.location.lat();
-        let lng = results[0].geometry.location.lng();
-        let LatLang = { lat, lng };
-        dispatch(setCurrentLocation(LatLang));
-        setGeocodingLatLang(LatLang);
-        if (!searchHistory.locations.some((item) => item.latLang === LatLang)) {
-          dispatch(
-            addSearchLocation({
-              id: uuid(),
-              latLang: { lat, lng },
-              address,
-            })
-          );
-        }
-      }
-    });
-  }, [geocodingService, address]);
-```
 
 ### 2. Saving a Selected Location
 
