@@ -11,8 +11,10 @@ export interface LocationType {
 interface LocationState {
   locations: LocationType[];
 }
+const storedValue = localStorage.getItem("locationsGeo");
+
 const initialState: LocationState = {
-  locations: [],
+  locations: JSON.parse(storedValue || "[]") ?? [],
 };
 const locationSlice = createSlice({
   name: "locationArray",
@@ -20,9 +22,11 @@ const locationSlice = createSlice({
   reducers: {
     addLocation(state, action: PayloadAction<LocationType>) {
       state.locations = [...state.locations, action.payload];
+      localStorage.setItem("locationsGeo", JSON.stringify(state.locations));
     },
     removeLocation(state, action: PayloadAction<string>) {
       state.locations = state.locations.filter((item) => item.id !== action.payload);
+      localStorage.setItem("locationsGeo", JSON.stringify(state.locations));
     },
   },
 });

@@ -9,8 +9,10 @@ export interface SearchLocationType {
 interface SearchLocationState {
   locations: SearchLocationType[];
 }
+const storedValue = localStorage.getItem("locationsGeoHistory");
+
 const initialState: SearchLocationState = {
-  locations: [],
+  locations: JSON.parse(storedValue || "[]") ?? [],
 };
 const searchHistorySlice = createSlice({
   name: "searchHistoryArray",
@@ -18,9 +20,11 @@ const searchHistorySlice = createSlice({
   reducers: {
     addSearchLocation(state, action: PayloadAction<SearchLocationType>) {
       state.locations = [...state.locations, action.payload];
+      localStorage.setItem("locationsGeoHistory", JSON.stringify(state.locations));
     },
     removeSearchLocation(state, action: PayloadAction<string>) {
       state.locations = state.locations.filter((item) => item.id !== action.payload);
+      localStorage.setItem("locationsGeoHistory", JSON.stringify(state.locations));
     },
   },
 });
