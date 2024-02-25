@@ -21,9 +21,11 @@ const InformationComp = ({}: Props) => {
     }
   };
   return (
-    <div className=" w-full border rounded-md p-4 shadow bg-gray-100">
-      <h1 className=" text-xl font-semibold border-gray-400 mb-1">Current Location:</h1>
-      <div className=" flex flex-col items-start text-base w-full gap-2">
+    <div className=" w-full h-full border rounded-md p-4 shadow  bg-slate-800 text-gray-300">
+      <h1 className=" text-xl font-semibold border-b border-gray-400 mb-3">
+        Current Location
+      </h1>
+      <div className=" flex  justify-between text-base w-full gap-2">
         <div className="flex flex-col w-full">
           <p>
             <span className=" font-semibold mr-4">Latitude</span>{" "}
@@ -34,8 +36,12 @@ const InformationComp = ({}: Props) => {
             {currentLocation.value.lng}
           </p>
         </div>
-        <Button className="w-full" onClick={() => handleAddLocation()}>
-          Add
+        <Button
+          variant={"outline"}
+          className={"w-full text-gray-900 text-md hover:bg-slate-200 outline-none"}
+          onClick={() => handleAddLocation()}
+        >
+          Save Location
         </Button>
       </div>
     </div>

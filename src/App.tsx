@@ -13,7 +13,7 @@ function App() {
           <InformationPanel />
         </APIProvider>
       </div>
-      <div className="min-w-[320px] w-[20%] h-full border-r">
+      <div className="min-w-[320px] w-[20%] h-full  border-r">
         <Sidebar />
       </div>
     </div>

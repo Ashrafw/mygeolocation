@@ -3,7 +3,10 @@ import { useAppSelector } from "../../store/hooks";
 import LocationItem from "./LocationItem";
 import CsvDownloadButton from "react-json-to-csv";
 import { Download } from "lucide-react";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 const LocationHistory = () => {
+  const [animationDiv] = useAutoAnimate();
+
   const location = useAppSelector((state) => state.location);
   const data = useMemo(() => {
     return location.locations.map((item) => {
@@ -14,7 +17,7 @@ const LocationHistory = () => {
   return (
     <div className="w-full h-full bg-slate-800 text-gray-200 rounded">
       <div className="flex justify-between pr-3 border-b items-center ">
-        <h1 className="  text-2xl font-bold p-2 px-4">My Locations</h1>
+        <h1 className="  text-xl font-bold p-2 px-4">My Locations</h1>
         {data.length > 0 && (
           <CsvDownloadButton
             data={data}
@@ -25,7 +28,10 @@ const LocationHistory = () => {
         )}
       </div>
 
-      <div className="flex flex-col gap-2 p-1 py-2 overflow-auto h-[calc(100%-50px)] pb-4 ">
+      <div
+        className="flex flex-col gap-2 p-1 py-2 overflow-auto h-[calc(100%-50px)] pb-4 "
+        ref={animationDiv}
+      >
         {location.locations.map((loc) => (
           <LocationItem key={loc.id} loc={loc} />
         ))}

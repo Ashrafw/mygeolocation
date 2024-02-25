@@ -17,7 +17,10 @@ const SearchLocation = () => {
   };
 
   return (
-    <div className=" w-full border rounded-md p-4  shadow bg-gray-100">
+    <div className=" w-full  h-full  border rounded-md p-4  shadow bg-slate-800 text-gray-300">
+      <h1 className=" text-xl font-semibold border-b border-gray-400 mb-3">
+        Search Location
+      </h1>
       <form className="flex w-full items-center gap-2 m-0" onSubmit={handleSubmit}>
         <Input
           type="address"
@@ -30,7 +33,13 @@ const SearchLocation = () => {
             }, 100)
           }
         />
-        <Button type="submit">Search</Button>
+        <Button
+          variant={"outline"}
+          className={" text-gray-900 text-md hover:bg-slate-200 outline-none"}
+          type="submit"
+        >
+          Search
+        </Button>
       </form>
       {mainAddress?.length > 0 && <Geocoding address={mainAddress} />}
     </div>

@@ -3,7 +3,7 @@ import SearchLocation from "./informationPanel/SearchLocation";
 
 const InformationPanel = () => {
   return (
-    <div className=" grid grid-cols-2  max-[945px]:grid-cols-1 gap-4 ">
+    <div className=" grid grid-cols-2  max-[945px]:grid-cols-1 gap-2  ">
       <InformationComp />
       <SearchLocation />
     </div>
