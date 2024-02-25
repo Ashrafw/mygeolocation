@@ -2,10 +2,12 @@ import { useRef, useState } from "react";
 import Geocoding from "./Geocoding";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 const SearchLocation = () => {
   const [inputAddress, setInputAddress] = useState("");
   const [mainAddress, setMainAddress] = useState("");
+  const [animationDiv] = useAutoAnimate();
 
   const inputRef = useRef<HTMLInputElement | null>(null);
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -41,7 +43,9 @@ const SearchLocation = () => {
           Search
         </Button>
       </form>
-      {mainAddress?.length > 0 && <Geocoding address={mainAddress} />}
+      <div ref={animationDiv}>
+        {mainAddress?.length > 0 && <Geocoding address={mainAddress} />}
+      </div>
     </div>
   );
 };

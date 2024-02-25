@@ -1,31 +1,63 @@
-# React + TypeScript + Vite
+# MyGeoLocation App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This application uses the powerful capabilities of the new Google Maps JavaScript API package **@vis.gl/react-google-maps** to provide an interactive and feature-rich mapping experience.
 
-Currently, two official plugins are available:
+![alt text](image.png)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+To start the code: npm run dev
 
-## Expanding the ESLint configuration
+## CSS styling:
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+The primary styling framework throughout the project is Tailwind CSS and shadcn/ui.
 
-- Configure the top-level `parserOptions` property like this:
+## Functionalities
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+### 1. Search Functionality
+
+- Explore and locate specific addresses, places, or points of interest on the map.
+- Utilises the advanced features of the Google Maps API to ensure accurate and comprehensive search results (Geocoding.tsx).
+
+```Javascript
+ useEffect(() => {
+    if (!geocodingService || !address) return;
+    geocodingService.geocode({ address }, (results, status) => {
+      if (results && status === "OK") {
+        console.log("results", results);
+        setGeocodingResult(results[0]);
+        let lat = results[0].geometry.location.lat();
+        let lng = results[0].geometry.location.lng();
+        let LatLang = { lat, lng };
+        dispatch(setCurrentLocation(LatLang));
+        setGeocodingLatLang(LatLang);
+        if (!searchHistory.locations.some((item) => item.latLang === LatLang)) {
+          dispatch(
+            addSearchLocation({
+              id: uuid(),
+              latLang: { lat, lng },
+              address,
+            })
+          );
+        }
+      }
+    });
+  }, [geocodingService, address]);
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
-# mygeolocation
+### 2. Saving a Selected Location
+
+- Mark and save points of interest or desired locations on the map.
+- Easily revisit and share saved locations.
+
+### 3. Search History
+
+- Keep track of your past searches.
+- Quickly access and revisit locations you've searched for in previous sessions.
+
+### 4. Saved Locations
+
+- Maintain a personalised list of your saved locations.
+- Efficiently manage marked points on the map.
+
+### 5. Option to Download Saved Locations in CSV Format
+
+- Export all your saved locations to a CSV (Comma-Separated Values) file.

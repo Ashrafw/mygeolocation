@@ -3,7 +3,7 @@ import SearchHistory from "./sidebar/SearchHistory";
 
 const Sidebar = () => {
   return (
-    <div className=" w-full h-full grid grid-rows-2 gap-2  p-1  ">
+    <div className=" w-full h-full grid grid-rows-2 gap-2  ">
       <LocationHistory />
       <SearchHistory />
     </div>

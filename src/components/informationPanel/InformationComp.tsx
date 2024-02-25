@@ -3,11 +3,13 @@ import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { v4 as uuid } from "uuid";
 import { Button } from "../ui/button";
 import { notification } from "@/lib/helper";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 type Props = {};
 
 const InformationComp = ({}: Props) => {
   const dispatch = useAppDispatch();
+  const [animationDiv] = useAutoAnimate();
 
   const currentLocation = useAppSelector((state) => state.currentLocation);
   const location = useAppSelector((state) => state.location);
@@ -21,7 +23,10 @@ const InformationComp = ({}: Props) => {
     }
   };
   return (
-    <div className=" w-full h-full border rounded-md p-4 shadow  bg-slate-800 text-gray-300">
+    <div
+      className=" w-full h-full border rounded-md p-4 shadow  bg-slate-800 text-gray-300"
+      ref={animationDiv}
+    >
       <h1 className=" text-xl font-semibold border-b border-gray-400 mb-3">
         Current Location
       </h1>
