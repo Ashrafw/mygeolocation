@@ -19,7 +19,7 @@ const MapView = () => {
   const dispatch = useAppDispatch();
   const currentLocation = useAppSelector((state) => state.currentLocation);
   const allLocations = useAppSelector((state) => state.location);
-  const [zoom, setZoom] = useState(12);
+  const [zoom, _] = useState(12);
   const [cameraProps, setCameraProps] = useState<MapCameraProps>({
     center: currentLocation.value,
     zoom: 12,
