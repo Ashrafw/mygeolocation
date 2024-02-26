@@ -43,3 +43,33 @@ The application uses React-Redux and Redux Toolkit for robust and efficient stat
 ### 5. Option to Download Saved Locations in CSV Format
 
 - Export all your saved locations to a CSV (Comma-Separated Values) file.
+
+## Map camera evaluation
+
+Checking whether the pin marker is inbound if not refocus map.
+
+```Javascript
+  const handleCameraChange = useCallback(
+    (ev: MapCameraChangedEvent) => {
+      let x = currentLocation.value.lng;
+      let y = currentLocation.value.lat;
+      // checking if the pin is in bound of camera view else refocuses
+      if (
+        y > ev.detail.bounds.north ||
+        y < ev.detail.bounds.south ||
+        x > ev.detail.bounds.east ||
+        x < ev.detail.bounds.west
+      ) {
+        setCameraProps({
+          center: currentLocation.value,
+          zoom: zoom,
+        });
+      } else {
+        setCameraProps(ev.detail);
+      }
+    },
+    [currentLocation.value]
+  );
+
+
+```
