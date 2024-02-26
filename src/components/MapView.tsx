@@ -1,11 +1,10 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 
 import {
   AdvancedMarker,
   Map,
   MapCameraChangedEvent,
   MapMouseEvent,
-  Marker,
   Pin,
 } from "@vis.gl/react-google-maps";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
