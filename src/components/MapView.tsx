@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import {
   AdvancedMarker,
@@ -14,7 +14,13 @@ import { setCurrentLocation } from "../store/Slices/currentLocationSlice";
 import { MapCameraProps } from "@vis.gl/react-google-maps";
 
 export type LatLngLiteral = google.maps.LatLngLiteral;
-
+type MapStatType = {
+  center: google.maps.LatLngLiteral;
+  bounds: google.maps.LatLngBoundsLiteral;
+  zoom: number;
+  heading: number;
+  tilt: number;
+};
 const MapView = () => {
   const dispatch = useAppDispatch();
   const currentLocation = useAppSelector((state) => state.currentLocation);
@@ -24,25 +30,27 @@ const MapView = () => {
     center: currentLocation.value,
     zoom: 12,
   });
+  const [mapState, setMapState] = useState<MapStatType | null>();
 
   const handleCameraChange = useCallback(
     (ev: MapCameraChangedEvent) => {
       let x = currentLocation.value.lng;
       let y = currentLocation.value.lat;
       // checking if the pin is in bound of camera view else refocuses
-      if (
-        y > ev.detail.bounds.north ||
-        y < ev.detail.bounds.south ||
-        x > ev.detail.bounds.east ||
-        x < ev.detail.bounds.west
-      ) {
-        setCameraProps({
-          center: currentLocation.value,
-          zoom: zoom,
-        });
-      } else {
-        setCameraProps(ev.detail);
-      }
+      // if (
+      //   y > ev.detail.bounds.north ||
+      //   y < ev.detail.bounds.south ||
+      //   x > ev.detail.bounds.east ||
+      //   x < ev.detail.bounds.west
+      // ) {
+      //   setCameraProps({
+      //     center: currentLocation.value,
+      //     zoom: zoom,
+      //   });
+      // } else {
+      setMapState(ev.detail);
+      setCameraProps(ev.detail);
+      // }
     },
     [currentLocation.value]
   );
@@ -52,6 +60,26 @@ const MapView = () => {
       dispatch(setCurrentLocation(ev.detail.latLng));
     }
   }, []);
+
+  useEffect(() => {
+    let x = currentLocation.value.lng;
+    let y = currentLocation.value.lat;
+    if (mapState) {
+      if (
+        y > mapState.bounds.north ||
+        y < mapState.bounds.south ||
+        x > mapState.bounds.east ||
+        x < mapState.bounds.west
+      ) {
+        setCameraProps({
+          center: currentLocation.value,
+          zoom: zoom,
+        });
+      }
+    }
+  }, [currentLocation.value]);
+
+  // console.log("currentLocation.value", currentLocation.value);
 
   return (
     <div className="rounded-lg overflow-hidden w-full h-[100%] border shadow">
