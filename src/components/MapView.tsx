@@ -34,23 +34,8 @@ const MapView = () => {
 
   const handleCameraChange = useCallback(
     (ev: MapCameraChangedEvent) => {
-      let x = currentLocation.value.lng;
-      let y = currentLocation.value.lat;
-      // checking if the pin is in bound of camera view else refocuses
-      // if (
-      //   y > ev.detail.bounds.north ||
-      //   y < ev.detail.bounds.south ||
-      //   x > ev.detail.bounds.east ||
-      //   x < ev.detail.bounds.west
-      // ) {
-      //   setCameraProps({
-      //     center: currentLocation.value,
-      //     zoom: zoom,
-      //   });
-      // } else {
       setMapState(ev.detail);
       setCameraProps(ev.detail);
-      // }
     },
     [currentLocation.value]
   );
